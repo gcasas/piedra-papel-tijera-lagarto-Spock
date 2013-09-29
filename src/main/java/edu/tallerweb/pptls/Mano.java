@@ -4,6 +4,8 @@ package edu.tallerweb.pptls;
  * Representa una de las Manos involucradas en el juego
  */
 public class Mano {
+	
+	private Forma forma;
 
 	/**
 	 * Toda Mano debe crearse con una forma dada, que será
@@ -11,7 +13,7 @@ public class Mano {
 	 * @param forma, la Forma que adopta la Mano.
 	 */
 	public Mano(final Forma forma) {
-		throw new RuntimeException("No implementado aún");
+		this.forma = forma;
 	}
 
 	/**
@@ -21,7 +23,48 @@ public class Mano {
 	 * @return un Resultado, de acuerdo al estado del juego.
 	 */
 	public Resultado jugarCon(final Mano otra) {
-		throw new RuntimeException("No implementado aún");
+		
+		if (this.forma == otra.forma) {
+			return Resultado.EMPATA;
+		}
+		
+		switch (this.forma) {
+			case PIEDRA:
+				if (otra.forma == Forma.PAPEL || otra.forma == Forma.SPOCK) {
+					return Resultado.PIERDE;
+				}
+				
+				break;
+				
+			case PAPEL:
+				if (otra.forma == Forma.TIJERA || otra.forma == Forma.LAGARTO) {
+					return Resultado.PIERDE;
+				}
+				
+				break;
+				
+			case TIJERA:
+				if (otra.forma == Forma.PIEDRA || otra.forma == Forma.SPOCK) {
+					return Resultado.PIERDE;
+				}
+				
+				break;
+				
+			case LAGARTO:
+				if (otra.forma == Forma.TIJERA || otra.forma == Forma.PIEDRA) {
+					return Resultado.PIERDE;
+				}
+				
+				break;
+				
+			case SPOCK:
+				if (otra.forma == Forma.PAPEL || otra.forma == Forma.LAGARTO) {
+					return Resultado.PIERDE;
+				}
+				
+				break;
+		}
+		
+		return Resultado.GANA;
 	}
-
 }
